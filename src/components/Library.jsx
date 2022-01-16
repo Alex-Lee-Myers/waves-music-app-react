@@ -4,7 +4,7 @@ const Library = ({songs, setCurrentSong}) => {
     return (
         <div className="library">
             <h2>Library</h2>
-            <div className="library-songs">
+            <div>
                 {songs.map((song, index) => (
                         <LibrarySong 
                             key={index} 
