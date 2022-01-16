@@ -4,3 +4,6 @@
     padding: 0;
     box-sizing: border-box;
 }
+//* Importing the partials for the individual components.
+@import './song';
+@import './player';
