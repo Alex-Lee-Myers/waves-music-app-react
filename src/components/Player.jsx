@@ -1,20 +1,13 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faStop, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-const Player = ({currentSong, isPlaying, setIsPlaying}) => {
+const Player = ({audioRef, currentSong, isPlaying, setIsPlaying, songInfo, setSongInfo}) => {
     //! States:
-    const [songInfo, setSongInfo] = useState({
-        currentTime: 0,
-        duration: 0,
-    });
 
 
     //! Event Handlers
-        //? useRef:
-            const audioRef = useRef();
-            //* How do you play a song and grab the audio element?
-            //* If you need to grab a specific HTML tag, you can use a ref (useRef)
+
             
         //? Play/Pause Button 
     const playSongHandler = () => {
@@ -27,17 +20,7 @@ const Player = ({currentSong, isPlaying, setIsPlaying}) => {
         }
     };
 
-        //? Time Update Handler
-            //* This is where it updates the current time of the song
-    const timeUpdateHandler = (e) => {
-        const current = e.target.currentTime;
-        const duration = e.target.duration;
-        setSongInfo({
-            ...songInfo,
-            currentTime: current,
-            duration,   //* This is the same as writing duration: duration
-        });
-    };
+
 
         //? getTime function to convert seconds to minutes and seconds
     const getTime = (time) => { 
@@ -74,11 +57,6 @@ const Player = ({currentSong, isPlaying, setIsPlaying}) => {
             <FontAwesomeIcon onClick={playSongHandler} className="play-button" size="2x" icon={isPlaying ? faPause : faPlay} />
             <FontAwesomeIcon className="skip-forward" size="2x"icon={faAngleRight} />
             </div>
-
-            <audio onLoadedMetadata={timeUpdateHandler} onTimeUpdate={timeUpdateHandler} ref={audioRef} src={currentSong.audio}></audio> 
-            {/*? This is where the audio file is being imported. If you add "controls", it gives a basic player. We don't want that. */}
-            {/*? The onLoadedMetadata event is where the duration of the song is being grabbed. */}
-            {/*? The onTimeUpdate event is where the current time of the song is being grabbed. */}
 
         </div>
         
