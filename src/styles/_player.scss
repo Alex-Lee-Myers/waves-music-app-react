@@ -12,10 +12,10 @@
     
     input{
         width: 100%;
-        padding: 1rem 2rem;
+        padding: 1rem 0rem;
     }
     p{
-        padding: 1rem;
+        padding: 1rem; //padding left and right messes up the value for time-control
     }
 }
 
