@@ -1,9 +1,11 @@
-
+import Song from './components/Song.jsx';
+import Player from './components/Player.jsx';
 
 function App() {
   return (
     <div className="App">
-      <h1>Music Player</h1>
+      <Song />
+      <Player />
     </div>
   );
 }

@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Waves | The Music App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Waves is a music web application 
 
 ## Available Scripts
 
