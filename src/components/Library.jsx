@@ -8,7 +8,7 @@ const Library = ({libraryStatus, songs, setSongs, currentSong, setCurrentSong, a
 
     //! Render:
     return (
-        <div className={`library ${libraryStatus ? `library-active` : ``}`}>
+        <div className={`library ${libraryStatus ? `library-active mobile-active` : ``}`}>
             <h2>Library</h2>
             <ul>
                 {songs.map((song) => (

@@ -24,16 +24,15 @@ nav {
   }
 }
 
-@media screen and (max-width: 768px) {
-  nav {
-    display: flex;
-    justify-content: space-around;
-    min-height: 10vh;
-    position: relative;
-    width: 100%;
+@media screen and (max-width: 820px) {
+  .mobile-active {
+    nav {
+      z-index: 10;
+      margin-left: -40rem;
+    }
+
     button {
-      padding: 0.5rem;
       z-index: 10;
     }
-  }
+}
 }

@@ -29,4 +29,11 @@
             width: 60%;
         }
     }
+
+    .mobile-active {
+        .song-container {
+            display: none;
+            width: 0;
+        }
+    }
 }

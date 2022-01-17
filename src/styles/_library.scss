@@ -80,13 +80,5 @@
 //! Media Screen Styles
 // .library-active sidebar should come in from the left and go over the main content.
 @media screen and (max-width: 768px) {
-    .library {
-        width: 100%;
-    }
-    
-    .library-active {
-        left: 0;
-        width: 100vw;
-        z-index: 5;
-    }
+
 }

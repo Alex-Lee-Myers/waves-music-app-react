@@ -16,7 +16,7 @@ const Nav = ({ setLibraryStatus, libraryStatus }) => {
             <h1>Waves</h1>
             
             <button
-            className={libraryStatus ? "library-active" : ""}
+            className={libraryStatus ? "library-active mobile-active" : ""}
             onClick={openLibraryHandler}
             >
                 Library

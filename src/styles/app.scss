@@ -37,3 +37,12 @@ h1 {
         font-weight: 400;
 }
 
+@media screen and (max-width: 768px) {
+    .mobile-active {
+        
+    }
+
+    .library-active {
+        margin-left: 20rem;
+    }
+}
