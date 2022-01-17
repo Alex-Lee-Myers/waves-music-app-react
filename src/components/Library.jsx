@@ -4,11 +4,13 @@ const Library = ({libraryStatus, songs, setSongs, currentSong, setCurrentSong, a
     //! States:
 
     //! Event Handlers:
+
+
     //! Render:
     return (
         <div className={`library ${libraryStatus ? `library-active` : ``}`}>
             <h2>Library</h2>
-            <div>
+            <ul>
                 {songs.map((song) => (
                         <LibrarySong 
                             active={song.active} //? This is the active state of the song
@@ -19,14 +21,14 @@ const Library = ({libraryStatus, songs, setSongs, currentSong, setCurrentSong, a
                             setCurrentSong={setCurrentSong} //? This is the function to change the current song to something else
                             id={song.id} //? This is the id of the song
                             isPlaying={isPlaying} //? This is the isPlaying state of the song
-                            key={song.id} //? This is a unique key for each song that React requires
+                            key={song.id.toString()} //? This is a unique key for each song that React requires
                             name={song.name} //? This is the name of the song
                             song={song} //? This is the individual song and their information
                             songs={songs} //? This is the array of songs that is being passed in
                             setSongs={setSongs} //? This is the function that is being passed in
                         />
                 ))}
-            </div>
+            </ul>
         </div>
     )
 }

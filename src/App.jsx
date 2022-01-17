@@ -8,6 +8,8 @@ import Nav from './components/Nav.jsx';
 import './styles/app.scss';
 //! import data from data.js
 import data from './data.js';
+// import util that contains skipForward function
+import {skipForward} from './util.js';
 
 function App() {
   //! useRef:
@@ -29,13 +31,8 @@ function App() {
   //! Event Handlers:
 
   const songEndHandler = async () => {
-    let currentIndex = songs.findIndex((song) => song.id === currentSong.id); //? This is how you find the index of the current song
-            await setCurrentSong(songs[(currentIndex + 1) % songs.length]); //? % is the modulus operator, this is how you get the remainder of a number
-            if(isPlaying) {
-                audioRef.current.play(); //* Play the song
-                setIsPlaying(!isPlaying); //* Change the state of isPlaying to true
-            }
-        }
+    skipForward(songs, currentSong, setCurrentSong, isPlaying, audioRef);
+  };
 
 
   //? Time Update Handler

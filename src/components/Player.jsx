@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import {skipForward} from '../util.js';
 
 const Player = ({
     audioRef, 
@@ -64,7 +65,7 @@ const Player = ({
         let currentIndex = songs.findIndex((song) => song.id === currentSong.id); //? This is how you find the index of the current song
         //Forward Back
         if (direction === "skip-forward") {
-            await setCurrentSong(songs[(currentIndex + 1) % songs.length]); //? % is the modulus operator, this is how you get the remainder of a number
+            skipForward(songs, currentSong, setCurrentSong, isPlaying, audioRef); //? % is the modulus operator, this is how you get the remainder of a number
             activeLibraryHandler(songs[(currentIndex + 1) % songs.length]); //? 
         }
         if (direction === "skip-back") {
