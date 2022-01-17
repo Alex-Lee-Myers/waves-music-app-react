@@ -1,7 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-const Player = ({audioRef, currentSong, setCurrentSong, songs, isPlaying, setIsPlaying, songInfo, setSongs, setSongInfo}) => {
+const Player = ({
+    audioRef, 
+    currentSong, 
+    setCurrentSong, 
+    isPlaying, 
+    setIsPlaying, 
+    songInfo, 
+    setSongInfo,
+    songs,
+    setSongs, 
+    }) => {
     //! States:
 
     //! ActiveLibraryHandler:
@@ -70,12 +80,24 @@ const Player = ({audioRef, currentSong, setCurrentSong, songs, isPlaying, setIsP
         if (isPlaying) audioRef.current.play();
     };
 
+        //!  Styles:
+    //* Add the styles to the player
+    const trackAnim = {
+        transform: `translateX(${songInfo.animationPercentage}%)`
+    }
+
+    const progressGradientBar = {
+        background: `linear-gradient(to right, ${currentSong.color[0]}, ${currentSong.color[1]})`
+    }
+
+
     //! Render UI:
     return (
         <div className="player">
 
             <div className="time-control">
                 <p>{getTime(songInfo.currentTime)}</p>
+                <div style={progressGradientBar} className ="track">
                 <input 
                     min={0} 
                     max={songInfo.duration || 0}
@@ -83,6 +105,8 @@ const Player = ({audioRef, currentSong, setCurrentSong, songs, isPlaying, setIsP
                     type="range"
                     onChange={dragHandler}
                     />
+                    <div style={trackAnim} className="animate-track"></div>
+                </div>
                 <p>{songInfo.duration ? getTime(songInfo.duration) : "0:00"}</p>
             </div>
 
