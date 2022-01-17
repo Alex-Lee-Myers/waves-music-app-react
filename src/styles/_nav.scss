@@ -1,21 +1,23 @@
 nav {
-  min-height: 10vh;
+  align-items: center;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  min-height: 10vh;
+  
   button {
     background: transparent;
-    border: none;
+    border: 2px solid rgb(65, 65, 65);
     cursor: pointer;
     padding: 0.5rem;
-    border: 2px solid rgb(65, 65, 65);
     transition: all 0.3s ease;
     z-index: 10;
+
     &:hover {
       background: rgb(65, 65, 65);
       color: white;
     }
   }
+
   .library-active {
     background: rgb(65, 65, 65);
     color: white;
@@ -24,7 +26,13 @@ nav {
 
 @media screen and (max-width: 768px) {
   nav {
+    display: flex;
+    justify-content: space-around;
+    min-height: 10vh;
+    position: relative;
+    width: 100%;
     button {
+      padding: 0.5rem;
       z-index: 10;
     }
   }
