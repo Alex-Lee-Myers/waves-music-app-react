@@ -5,6 +5,9 @@
     "node": "14.17.1",
     "npm": "6.14.13"
   },
+  "resolutions": {
+    "mini-css-extract-plugin": "2.4.5"
+  },
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -43,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "mini-css-extract-plugin": "2.4.5"
   }
 }
