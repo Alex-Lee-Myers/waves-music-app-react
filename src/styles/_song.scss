@@ -1,11 +1,11 @@
 //* This is called a partial: "_[componentname].scss". It's a way to include a portion of a file in another file.
 
 .song-container {
-    min-height: 60vh;
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    min-height: 60vh;
 
     img{
         width: 20%;
@@ -18,5 +18,15 @@
 
     h3 {
         font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .song-container {
+        min-height: 50vh;
+
+        img{
+            width: 60%;
+        }
     }
 }

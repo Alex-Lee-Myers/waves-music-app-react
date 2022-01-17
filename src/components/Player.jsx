@@ -1,9 +1,27 @@
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause, faStop, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-const Player = ({audioRef, currentSong, isPlaying, setIsPlaying, songInfo, setSongInfo}) => {
+const Player = ({audioRef, currentSong, setCurrentSong, songs, isPlaying, setIsPlaying, songInfo, setSongs, setSongInfo}) => {
     //! States:
+
+    //! ActiveLibraryHandler:
+    const activeLibraryHandler = (song) => {
+        const newSongs = songs.map((song) => {
+            if(song.id === currentSong.id) {
+                return {
+                    ...song,
+                    active: true,
+                }
+            } else {
+                return {
+                    ...song,
+                    active: false,
+                }
+            }
+        });
+        setSongs(newSongs);
+    }
+
 
     //! Event Handlers:
         //? Play/Pause Button 
@@ -31,6 +49,27 @@ const Player = ({audioRef, currentSong, isPlaying, setIsPlaying, songInfo, setSo
         setSongInfo({...songInfo, currentTime: e.target.value}); //
     };
 
+        //? skipTrackHandler for the skip buttons
+    const skipTrackHandler = async (direction) => {
+        let currentIndex = songs.findIndex((song) => song.id === currentSong.id); //? This is how you find the index of the current song
+        //Forward Back
+        if (direction === "skip-forward") {
+            await setCurrentSong(songs[(currentIndex + 1) % songs.length]); //? % is the modulus operator, this is how you get the remainder of a number
+            activeLibraryHandler(songs[(currentIndex + 1) % songs.length]); //? 
+        }
+        if (direction === "skip-back") {
+            if ((currentIndex - 1) % songs.length === -1) {
+            await setCurrentSong(songs[songs.length - 1]);
+            activeLibraryHandler(songs[songs.length - 1]);
+            if (isPlaying) audioRef.current.play();
+            return;
+            }
+            await setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+            activeLibraryHandler(songs[(currentIndex - 1) % songs.length]);
+        }
+        if (isPlaying) audioRef.current.play();
+    };
+
     //! Render UI:
     return (
         <div className="player">
@@ -39,18 +78,18 @@ const Player = ({audioRef, currentSong, isPlaying, setIsPlaying, songInfo, setSo
                 <p>{getTime(songInfo.currentTime)}</p>
                 <input 
                     min={0} 
-                    max={songInfo.duration} 
+                    max={songInfo.duration || 0}
                     value={songInfo.currentTime} 
                     type="range"
                     onChange={dragHandler}
                     />
-                <p>{getTime(songInfo.duration)}</p>
+                <p>{songInfo.duration ? getTime(songInfo.duration) : "0:00"}</p>
             </div>
 
             <div className="play-control">
-            <FontAwesomeIcon className="skip-back" size="2x" icon={faAngleLeft} />
+            <FontAwesomeIcon onClick={() => skipTrackHandler('skip-back')} className="skip-back" size="2x" icon={faAngleLeft} />
             <FontAwesomeIcon onClick={playSongHandler} className="play-button" size="2x" icon={isPlaying ? faPause : faPlay} />
-            <FontAwesomeIcon className="skip-forward" size="2x"icon={faAngleRight} />
+            <FontAwesomeIcon onClick={() => skipTrackHandler('skip-forward')} className="skip-forward" size="2x"icon={faAngleRight} />
             </div>
 
         </div>

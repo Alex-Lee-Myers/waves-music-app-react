@@ -1,42 +1,31 @@
 
 
-const LibrarySong = ({song, cover, songs, setSongs, currentSong, setCurrentSong, audioRef, isPlaying}) => {
+const LibrarySong = ({song, cover, songs, setSongs, id, currentSong, setCurrentSong, audioRef, isPlaying}) => {
     //! States:
     //? None
 
     //! Event Handlers:
-    const songSelectHandler = () => {
-        //* Grab all the songs and filter them out.
-        //* Then set the current song to the one that was clicked on.
-        setCurrentSong(song);
-        //Add Active State
+    const songSelectHandler = async () => {
+        const selectedSong = songs.filter((state) => state.id === id);
+        await setCurrentSong({ ...selectedSong[0] });
+        //Set Active in library
         const newSongs = songs.map((song) => {
-            if(song.id === currentSong.id) {
+            if (song.id === id) {
                 return {
                     ...song,
                     active: true,
-                }
-            } else {
+                };
+                } else {
                 return {
                     ...song,
                     active: false,
-                }
+                };
             }
         });
         setSongs(newSongs);
-        //check if the song is playing
-        //if it is playing, pause it
-        //if it is not playing, play it
-        if(isPlaying) {
-            const playPromise = audioRef.current.play();
-            if (playPromise !== undefined) { //* This is a check to see if the browser supports the play promise.
-                playPromise.then((audio) => { //* This is a check to see if the song is playing.
-                    audioRef.current.play(); //* This is to play the song.
-                }).catch((error) => {
-                    console.log(error); 
-                });
-            }
-        }
+    
+        //Play audio
+        if (isPlaying) audioRef.current.play();
     };
 
     //! Render UI
