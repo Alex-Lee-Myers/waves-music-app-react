@@ -3,13 +3,18 @@ import { useState, useRef } from 'react';
 import Song from './components/Song.jsx';
 import Player from './components/Player.jsx';
 import Library from './components/Library.jsx';
-// importing Styles/scss file
+//! importing Styles/scss file
 import './styles/app.scss';
-// import data from data.js
+//! import data from data.js
 import data from './data.js';
 
 function App() {
-  //? States:
+  //! useRef:
+  const audioRef = useRef();
+    //* How do you play a song and grab the audio element?
+    //* If you need to grab a specific HTML tag, you can use a ref (useRef)
+
+  //! States:
   const [songs, setSongs] = useState(data());
   const [currentSong, setCurrentSong] = useState(songs[0]); //? Setting state to index 0 of the data array so a song already loads on page load.
   const [isPlaying, setIsPlaying] = useState(false);
@@ -18,12 +23,9 @@ function App() {
     duration: 0,
 });
 
-  //? Event Handlers:
+  //! Event Handlers:
 
-  //? useRef:
-  const audioRef = useRef();
-    //* How do you play a song and grab the audio element?
-    //* If you need to grab a specific HTML tag, you can use a ref (useRef)
+
 
   //? Time Update Handler
     const timeUpdateHandler = (e) => {
@@ -36,34 +38,39 @@ function App() {
       });
   };
 
+  //! Render UI
   return (
     <div className="App">
-      <Song currentSong={currentSong} />
-      <Player 
-        songInfo={songInfo} 
-        setSongInfo={setSongInfo} 
-        audioRef={audioRef} 
+      <Song 
         currentSong={currentSong} 
-        songs={songs} 
-        setCurrentSong={setCurrentSong} 
-        isPlaying={isPlaying} 
-        setIsPlaying={setIsPlaying} />
+      />
+      <Player 
+        audioRef={audioRef}
+        currentSong={currentSong}
+        setCurrentSong={setCurrentSong}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        songInfo={songInfo}
+        setSongInfo={setSongInfo}
+        songs={songs}
+      />
       <Library 
         audioRef={audioRef}
-        songs={songs} 
-        setCurrentSong={setCurrentSong} 
         currentSong={currentSong} 
-        setSongs={setSongs} 
-        isPlaying={isPlaying} />
+        setCurrentSong={setCurrentSong}
+        isPlaying={isPlaying}
+        songs={songs}
+        setSongs={setSongs}
+      />
       <audio 
         onLoadedMetadata={timeUpdateHandler} 
         onTimeUpdate={timeUpdateHandler} 
         ref={audioRef} 
-        src={currentSong.audio}>
-      </audio> 
-      {/*? This is where the audio file is being imported. If you add "controls", it gives a basic player. We don't want that. */}
-      {/*? The onLoadedMetadata event is where the duration of the song is being grabbed. */}
-      {/*? The onTimeUpdate event is where the current time of the song is being grabbed. */}
+        src={currentSong.audio}
+      ></audio> 
+            {/*? This is where the audio file is being imported. If you add "controls", it gives a basic player. We don't want that. */}
+            {/*? The onLoadedMetadata event is where the duration of the song is being grabbed. */}
+            {/*? The onTimeUpdate event is where the current time of the song is being grabbed. */}
     </div>
   );
 }

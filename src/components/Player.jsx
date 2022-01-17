@@ -5,10 +5,7 @@ import { faPlay, faPause, faStop, faAngleLeft, faAngleRight } from "@fortawesome
 const Player = ({audioRef, currentSong, isPlaying, setIsPlaying, songInfo, setSongInfo}) => {
     //! States:
 
-
-    //! Event Handlers
-
-            
+    //! Event Handlers:
         //? Play/Pause Button 
     const playSongHandler = () => {
         if(isPlaying) {
@@ -19,8 +16,6 @@ const Player = ({audioRef, currentSong, isPlaying, setIsPlaying, songInfo, setSo
             setIsPlaying(!isPlaying); //* Change the state of isPlaying to true
         }
     };
-
-
 
         //? getTime function to convert seconds to minutes and seconds
     const getTime = (time) => { 
@@ -36,7 +31,7 @@ const Player = ({audioRef, currentSong, isPlaying, setIsPlaying, songInfo, setSo
         setSongInfo({...songInfo, currentTime: e.target.value}); //
     };
 
-    //! Render UI
+    //! Render UI:
     return (
         <div className="player">
 

@@ -1,6 +1,11 @@
 
 
 const Song = ({currentSong}) => {
+    //! States:
+
+    //! Event Handlers:
+
+    //! Render UI:
     return (
         <div className="song-container">
             <img src={currentSong.cover} alt={`Cover art for the song ${currentSong.name} by ${currentSong.artist}`} className="cover" />

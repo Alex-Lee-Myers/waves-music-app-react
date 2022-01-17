@@ -1,6 +1,6 @@
 
 
-const LibrarySong = ({song, songs, setCurrentSong, audioRef, isPlaying}) => {
+const LibrarySong = ({song, cover, songs, setSongs, currentSong, setCurrentSong, audioRef, isPlaying}) => {
     //! States:
     //? None
 
@@ -9,7 +9,21 @@ const LibrarySong = ({song, songs, setCurrentSong, audioRef, isPlaying}) => {
         //* Grab all the songs and filter them out.
         //* Then set the current song to the one that was clicked on.
         setCurrentSong(song);
-        audioRef.current.play()
+        //Add Active State
+        const newSongs = songs.map((song) => {
+            if(song.id === currentSong.id) {
+                return {
+                    ...song,
+                    active: true,
+                }
+            } else {
+                return {
+                    ...song,
+                    active: false,
+                }
+            }
+        });
+        setSongs(newSongs);
         //check if the song is playing
         //if it is playing, pause it
         //if it is not playing, play it
@@ -25,11 +39,13 @@ const LibrarySong = ({song, songs, setCurrentSong, audioRef, isPlaying}) => {
         }
     };
 
-
     //! Render UI
     return (
-        <div onClick={songSelectHandler} className="library-songs">
-            <img src={song.cover} alt={`Cover art for the song ${song.name} by ${song.artist}`} className="cover" />
+        <div 
+            onClick={songSelectHandler} 
+            className={`library-songs ${song.active ? `selected` : ""}`}
+        >
+            <img src={cover} alt={`Cover art for the song ${song.name} by ${song.artist}`} className="cover" />
             <div className="song-description">
             <h3>{song.name}</h3>
             <h4>{song.artist}</h4>
